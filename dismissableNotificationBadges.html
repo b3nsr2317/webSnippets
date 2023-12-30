@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="index.css" />
+        <title>Document</title>
+        <style>
+            /* style for the containing div */
+            #container {
+                width: 50vw;
+                min-width: 200px;
+                height: 50vh;
+                min-height: 275px;
+                padding: 1vw;
+            }
+
+            /* style for each list item */
+            .item {
+                display: block;
+                position: relative;
+                padding: 20px;
+                margin-bottom: 10px;
+                width: 50px;
+                height: 25px;
+                border-radius: 10px;
+                text-align: center;
+                background-color: #00ffff;
+            }
+
+            .item:hover {
+                background-color: #00aaaa;
+            }
+
+            /* style of badge */
+            .badge {
+                display: inline-block;
+                position: absolute;
+                top: -5px;
+                right: -7px;
+                height: 15px;
+                width: 15px;
+                border-radius: 50%;
+                /* colour of badge, to use an icon: 
+                set background-color to transparent 
+                and include the icon between the div 
+                tags in the JavaScript constant badgeHtml*/
+                background-color: #ff0000;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- container -->
+        <div id="container">
+            <!-- list of items -->
+            <ul>
+                <li class="item unread">Item 1</li>
+                <li class="item unread">Item 2</li>
+                <li class="item unread">Item 3</li>
+            </ul>
+        </div>
+        <script>
+            // line of html used to include or remove badge
+            const badgeHtml = '<div class="badge"></div>';
+            // list of elements with unread tag
+            let unreads;
+
+            // get all unread items and add event listener for mouseover
+            let getUnreads = () => {
+                unreads = document.querySelectorAll(".unread");
+                for (i = 0; i < unreads.length; i++) {
+                    // adds badge to any unread items without one
+                    if (unreads[i].innerHTML.includes(badgeHtml) == false) {
+                        unreads[i].innerHTML += badgeHtml;
+                    }
+                    // add event listener for mouseover, can be changed to other event listeners e.g. click
+                    unreads[i].addEventListener(
+                        "mouseover",
+                        (event) => {
+                            // replace the badge with empty string
+                            event.target.innerHTML =
+                                event.target.innerHTML.replace(badgeHtml, "");
+                            // remove unread class and rerun getUnreads
+                            event.target.classList.remove("unread");
+                            getUnreads();
+                        },
+                        { once: true }
+                    );
+                }
+            };
+
+            getUnreads();
+        </script>
+    </body>
+</html>
