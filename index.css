@@ -1,0 +1,10 @@
+/* Some standard css for all files */
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+div {
+    background-color: #5050ff;
+}
